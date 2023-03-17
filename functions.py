@@ -27,7 +27,7 @@ def executar(busca):
     lista_pattern_found = list(set(lista_pattern_found))
 
     if len(lista_pattern_found) == 0:
-        return "Nenhum arquivo encontrado"
+        return ["Nenhum arquivo encontrado"]
     else:
         retorno = []
         retorno.append("Arquivos encontrados:")
