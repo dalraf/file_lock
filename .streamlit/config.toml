@@ -1,6 +1,7 @@
 [server]
 port=8501
 headless=true
-[browser]
-serverAddress = "coopemg-file-lock.arcominf.com.br"
-serverPort = 443
+enableCORS=true
+enableXsrfProtection=true
+
+
