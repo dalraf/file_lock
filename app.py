@@ -1,5 +1,5 @@
 import streamlit as st
-from function import executar
+from functions import executars
 
 st.set_page_config(
     page_title="Coopemg file lock",

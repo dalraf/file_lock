@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 from fabric import Connection
 import re
+from config import ssh_password, ip_proxmox, ip_nas, port_ssh
 
 
 def executar(busca):
 
     search_pattern = r"{}".format(busca.lower())
-    connect_kwargs = {"password": "arcom@1973"}
+    connect_kwargs = {"password": ssh_password}
     with Connection(
-        "10.139.0.27", user="root", port=5252, connect_kwargs=connect_kwargs
+        ip_proxmox, user="root", port=port_ssh, connect_kwargs=connect_kwargs
     ) as proxmox:
         with Connection(
-            "192.168.100.245",
+            ip_nas,
             gateway=proxmox,
             user="root",
-            port=5252,
+            port=port_ssh,
             connect_kwargs=connect_kwargs,
         ) as nas:
             smbstatus_raw = nas.run("smbstatus", hide=True).stdout.lower()
