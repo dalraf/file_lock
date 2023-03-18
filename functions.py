@@ -4,7 +4,7 @@ import re
 from config import ssh_password, ip_proxmox, ip_nas, port_ssh
 
 
-def executar(busca):
+def executar(busca='.*'):
 
     search_pattern = r"{}".format(busca.lower())
     connect_kwargs = {"password": ssh_password}

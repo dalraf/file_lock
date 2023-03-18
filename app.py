@@ -14,9 +14,8 @@ parametro = st.text_input('*Paramentos de busca*')
 
 
 if st.button("Executar"):
-    if parametro != '':
-        retorno = executar(parametro)
-        for line in retorno:
-            st.markdown(line)
+    retorno = executar(parametro)
+    for line in retorno:
+        st.markdown(line)
 
     
