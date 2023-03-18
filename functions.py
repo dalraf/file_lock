@@ -4,7 +4,10 @@ import re
 from config import ssh_password, ip_proxmox, ip_nas, port_ssh, dir_base
 
 
-def executar(busca=".*"):
+def executar(busca):
+
+    if busca == "":
+        return ["Nenhum arquivo encontrado"]
 
     search_pattern = r"{}".format(busca.lower())
     connect_kwargs = {"password": ssh_password}
