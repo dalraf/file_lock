@@ -35,9 +35,7 @@ def executar(busca):
         retorno = []
         for line_found in lista_pattern_found:
             pid = line_found.strip().split(" ")[0]
-            print(line_found)
             file_regexp = re.search(rf"^.*{dir_base}/(.*)   (.*)$", line_found) 
-            print(file_regexp)
             file_name = file_regexp.group(1)
             file_date_time = file_regexp.group(2)
             nome = [
