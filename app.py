@@ -1,5 +1,6 @@
 import streamlit as st
 from functions import executar
+import pandas as pd
 
 st.set_page_config(
     page_title="Coopemg file lock",
@@ -8,14 +9,26 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-st.markdown("### Verificar lock de arquivos da coopemg")
+# Título da página
+st.title("Coopemg File Lock")
 
-parametro = st.text_input('*Paramentos de busca*')
+# Seção para buscar arquivos com lock
+st.subheader("Verificar lock de arquivos da coopemg")
+st.write("Digite os parâmetros de busca abaixo:")
 
+# Entrada de texto para os parâmetros de busca
+parametro = st.text_input("Parâmetros de busca")
 
-if st.button("Executar"):
+# Botão para executar a busca
+btn_executar = st.button("Executar")
+
+# Exibição dos resultados da busca
+if btn_executar:
     retorno = executar(parametro)
-    for line in retorno:
-        st.markdown(line)
+    if retorno:
+        columns = ["Usuário", "Arquivo/Diretório aberto", "Data/Hora"]
+        df = pd.DataFrame(retorno, columns=columns)
+        st.table(df)
 
-    
+    else:
+        st.warning("Nenhum arquivo encontrado com lock.")

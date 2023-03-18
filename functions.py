@@ -7,7 +7,7 @@ from config import ssh_password, ip_proxmox, ip_nas, port_ssh, dir_base
 def executar(busca):
 
     if busca == "":
-        return ["Parametro de busca vazio"]
+        return False
 
     search_pattern = r"{}".format(busca.lower())
     connect_kwargs = {"password": ssh_password}
@@ -30,17 +30,18 @@ def executar(busca):
     lista_pattern_found = list(set(lista_pattern_found))
 
     if len(lista_pattern_found) == 0:
-        return ["Nenhum arquivo encontrado"]
+        return False
     else:
         retorno = []
-        retorno.append("Arquivos encontrados:")
         for line_found in lista_pattern_found:
             pid = line_found.strip().split(" ")[0]
-            file_name = re.search(rf"{dir_base}/(.*)", line_found).group(1)
+            print(line_found)
+            file_regexp = re.search(rf"^.*{dir_base}/(.*)   (.*)$", line_found) 
+            print(file_regexp)
+            file_name = file_regexp.group(1)
+            file_date_time = file_regexp.group(2)
             nome = [
                 i.strip().split(" ")[3] for i in smbstatus_raw.split("\n") if pid in i
             ][0]
-            retorno.append("""---""")
-            retorno.append("- Nome: " + nome)
-            retorno.append("- Arquivo: " + file_name)
+            retorno.append([nome, file_name, file_date_time])
         return retorno
