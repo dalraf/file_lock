@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 from fabric import Connection
 import re
-from config import ssh_password, ip_proxmox, ip_nas, port_ssh
+from config import ssh_password, ip_proxmox, ip_nas, port_ssh, dir_base
 
 
-def executar(busca='.*'):
+def executar(busca=".*"):
 
     search_pattern = r"{}".format(busca.lower())
     connect_kwargs = {"password": ssh_password}
@@ -33,7 +33,7 @@ def executar(busca='.*'):
         retorno.append("Arquivos encontrados:")
         for line_found in lista_pattern_found:
             pid = line_found.strip().split(" ")[0]
-            file_name = re.search(r"/mnt/dadoscoopemgsede/(.*)", line_found).group(1)
+            file_name = re.search(rf"{dir_base}/(.*)", line_found).group(1)
             nome = [
                 i.strip().split(" ")[3] for i in smbstatus_raw.split("\n") if pid in i
             ][0]
