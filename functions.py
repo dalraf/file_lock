@@ -38,8 +38,9 @@ def executar(busca):
             file_regexp = re.search(rf"^.*{dir_base}/(.*)   (.*)$", line_found) 
             file_name = file_regexp.group(1)
             file_date_time = file_regexp.group(2)
-            nome = [
-                i.strip().split(" ")[3] for i in smbstatus_raw.split("\n") if pid in i
+            line_nome_found = [
+                i for i in smbstatus_raw.split("\n") if pid in i
             ][0]
+            nome = re.search('^[0-9]+ +(\w+) +.*', line_nome_found).group(1)
             retorno.append([nome, file_name, file_date_time])
         return retorno
