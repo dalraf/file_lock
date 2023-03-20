@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from fabric import Connection
 import re
 from config import ssh_password, ip_proxmox, ip_nas, port_ssh, dir_base
